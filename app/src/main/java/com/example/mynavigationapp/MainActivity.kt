@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -26,9 +27,16 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
-                    MainScreen(
+                    Column (
                         modifier = Modifier.padding(innerPadding)
-                    )
+                    ) {
+                        MainScreen(
+                            modifier = Modifier.padding(innerPadding)
+                        )
+                        ShareButton(
+                            modifier = Modifier.padding(innerPadding)
+                        )
+                    }
                 }
             }
         }
@@ -67,20 +75,22 @@ fun MainScreen(modifier: Modifier = Modifier) {
     Button(
         modifier = modifier,
         onClick = {
-//        val intent = Intent(context, DetailActivity::class.java)
-        val intent = Intent(context, DetailActivity::class.java).apply {
-            putExtra("EXTRA_MESSAGE", message)
+            val intent = Intent(context, DetailActivity::class.java).apply {
+                putExtra("EXTRA_MESSAGE", message)
+            }
+            context.startActivity(intent)
         }
-        context.startActivity(intent)
-    }) {
+    ) {
         Text(text = "Go to Detail Screen")
     }
 }
 
 @Composable
-fun ShareButton() {
+fun ShareButton(modifier: Modifier = Modifier) {
     val context = LocalContext.current
-    Button(onClick = {
+    Button(
+        modifier = modifier,
+        onClick = {
         val intent = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
             putExtra(Intent.EXTRA_TEXT, "Check out this cool app!")

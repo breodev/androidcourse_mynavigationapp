@@ -48,7 +48,7 @@ fun DetailScreen(modifier: Modifier = Modifier) {
 @Composable
 fun DetailScreen2(modifier: Modifier = Modifier) {
     val context = LocalContext.current
-    val taskId = (context as? Activity)?.intent?.getStringExtra("TASK_ID") ?: "Unknown Task"
+    val taskId = (context as? Activity)?.intent?.getStringExtra("EXTRA_MESSAGE") ?: "Unknown Task"
     Text(
         modifier = modifier,
         text = "Details for Task ID: $taskId",
